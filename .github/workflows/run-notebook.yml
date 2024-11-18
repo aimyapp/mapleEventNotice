@@ -2,8 +2,8 @@ name: Run Maple Event Notice
 
 on:
   schedule:
-    # 毎週火曜日と土曜日の0時に実行
-    - cron: '0 0 * * 2,6'
+    # 毎週水曜日と土曜日の0時に実行
+    - cron: '0 0 * * 3,6'
 
 jobs:
   run-notebook:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.1'
+        python-version: '3.10.12'
 
     - name: Install dependencies
       run: |
@@ -24,4 +24,4 @@ jobs:
 
     - name: Run Jupyter Notebook
       run: |
-        jupyter nbconvert --to notebook --execute --inplace mapleNotification.ipynb
+        jupyter nbconvert --to notebook --execute --inplace mapleEventNotice.ipynb
