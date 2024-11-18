@@ -1,0 +1,27 @@
+name: Run Maple Event Notice
+
+on:
+  schedule:
+    # 毎週火曜日と土曜日の0時に実行
+    - cron: '0 0 * * 2,6'
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.1'
+
+    - name: Install dependencies
+      run: |
+        pip install nbconvert pandas numpy
+
+    - name: Run Jupyter Notebook
+      run: |
+        jupyter nbconvert --to notebook --execute --inplace mapleNotification.ipynb
