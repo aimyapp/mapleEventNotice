@@ -23,6 +23,11 @@ jobs:
     - name: Install dependencies
       run: |
         pip install nbconvert pandas numpy
+        pip install jupyter
+
+    - name: Install Jupyter Kernel
+      run: |
+        python -m ipykernel install --user --name=python3
 
     - name: Run Jupyter Notebook
       run: |
