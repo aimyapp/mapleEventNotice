@@ -24,6 +24,10 @@ jobs:
       run: |
         pip install nbconvert pandas numpy
 
+    - name: Create scripts directory
+      run: |
+        mkdir -p scripts
+
     - name: Convert notebook to Python script
       run: |
         jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
