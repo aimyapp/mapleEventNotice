@@ -26,11 +26,11 @@ jobs:
 
     - name: Convert notebook to Python script
       run: |
-        jupyter nbconvert --to script --output scripts/mapleEventNotice.txt mapleEventNotice.ipynb
+        jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
     - name: Rename the script file to .py
       run: |
-        mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py
+        mv scripts/mapleEventNotice.py scripts/mapleEventNotice.py
 
     - name: Run Python script
       run: |
