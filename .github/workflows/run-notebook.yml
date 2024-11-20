@@ -22,12 +22,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install nbconvert pandas numpy selenium
+        pip install nbconvert pandas numpy
 
-    - name: Convert Notebook to Python script
+    - name: Convert notebook to Python script
       run: |
-        jupyter nbconvert --to script mapleEventNotice.ipynb
+        jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
-    - name: Run converted Python script
+    - name: Run Python script
       run: |
-        python mapleEventNotice.py
+        python scripts/mapleEventNotice.py
