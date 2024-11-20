@@ -35,6 +35,8 @@ jobs:
     - name: Install requests module
       run: |
         pip install requests
+        python -m pip install --upgrade pip
+        pip install requests selenium  # requests と selenium をインストール
       
     - name: List files to check script generation
       run: |
