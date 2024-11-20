@@ -5,41 +5,30 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * 3,6'
+    - cron: '0 0 * * 3,6'  # 毎週水曜日と土曜日の0時に実行
 
 jobs:
-  run-notebook:
+  install_and_run:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10.12'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
 
-    - name: Install dependencies
-      run: |
-        pip install nbconvert pandas numpy
+      - name: Install requests module
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests  # requestsをインストール
 
-    - name: Create output directory
-      run: |
-        mkdir -p scripts  # 出力先のディレクトリを作成
+      - name: Convert Notebook to Python script
+        run: |
+          jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
-    - name: Convert notebook to Python script
-      run: |
-        jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
-
-    - name: List files to check script generation
-      run: |
-        ls -l scripts  # 出力されたファイルを確認
-
-    - name: Rename the converted script (if needed)
-      run: |
-        mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py  # 拡張子を変更（必要な場合）
-
-    - name: Run Python script
-      run: |
-        python scripts/mapleEventNotice.py  # .py ファイルとして実行
+      - name: Run the script
+        run: |
+          python scripts/mapleEventNotice.py
