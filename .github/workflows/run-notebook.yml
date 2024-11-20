@@ -24,17 +24,13 @@ jobs:
       run: |
         pip install nbconvert pandas numpy
 
-    - name: Create scripts directory
-      run: |
-        mkdir -p scripts
-
     - name: Convert notebook to Python script
       run: |
-        jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
+        jupyter nbconvert --to script --output scripts/mapleEventNotice.txt mapleEventNotice.ipynb
 
-    - name: List files in scripts directory
+    - name: Rename the script file to .py
       run: |
-        ls -l scripts/
+        mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py
 
     - name: Run Python script
       run: |
