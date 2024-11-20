@@ -32,6 +32,14 @@ jobs:
       run: |
         jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
+    - name: List files to check script generation
+      run: |
+        ls -l scripts  # 出力されたファイルを確認
+
+    - name: Rename the converted script (if needed)
+      run: |
+        mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py  # 拡張子を変更（必要な場合）
+
     - name: Run Python script
       run: |
         python scripts/mapleEventNotice.py  # .py ファイルとして実行
