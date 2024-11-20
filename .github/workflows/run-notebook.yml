@@ -20,6 +20,10 @@ jobs:
       with:
         python-version: '3.10.12'
 
+    - name: Clean environment
+      run: |
+        jupyter kernelspec remove python3 -f || true
+
     - name: Install dependencies
       run: |
         pip install nbconvert pandas numpy selenium
