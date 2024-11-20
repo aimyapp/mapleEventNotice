@@ -22,12 +22,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install nbconvert pandas numpy ipykernel
+        pip install nbconvert pandas numpy selenium
 
-    - name: Install Jupyter Kernel
+    - name: Convert Notebook to Python script
       run: |
-        python -m ipykernel install --user --name=python3
+        jupyter nbconvert --to script mapleEventNotice.ipynb
 
-    - name: Run Jupyter Notebook
+    - name: Run converted Python script
       run: |
-        jupyter nbconvert --to notebook --execute --inplace mapleEventNotice.ipynb
+        python mapleEventNotice.py
