@@ -22,7 +22,19 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install nbconvert pandas numpy
+        pip install nbconvert pandas numpy selenium
+        sudo apt -y update
+        sudo apt-get install -y libvulkan1
+        sudo apt-get -f install
+        sudo apt install -y wget curl unzip
+        wget http://archive.ubuntu.com/ubuntu/pool/main/libu/libu2f-host/libu2f-udev_1.1.4-1_all.deb
+        sudo dpkg -i libu2f-udev_1.1.4-1_all.deb
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        wget -N https://storage.googleapis.com/chrome-for-testing-public/130.0.6723.116/linux64/chromedriver-linux64.zip -P /tmp/
+        unzip -o /tmp/chromedriver-linux64.zip -d /tmp/
+        chmod +x /tmp/chromedriver-linux64/chromedriver
+        sudo mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
         pip install jupyter
 
     - name: Install Jupyter Kernel
