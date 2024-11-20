@@ -32,6 +32,10 @@ jobs:
       run: |
         jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
+    - name: List files in scripts directory
+      run: |
+        ls -l scripts/
+
     - name: Run Python script
       run: |
         python scripts/mapleEventNotice.py
