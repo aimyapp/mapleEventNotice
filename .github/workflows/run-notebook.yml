@@ -69,6 +69,10 @@ jobs:
         export USER_ID=${{ secrets.USER_ID }}
 
     - name: Debug environment variables
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        USER_ID: ${{ secrets.USER_ID }}
+
       run: |
         echo "ACCESS_TOKEN length: ${#ACCESS_TOKEN}"
         echo "USER_ID length: ${#USER_ID}"
