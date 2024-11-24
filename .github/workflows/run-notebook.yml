@@ -48,47 +48,17 @@ jobs:
       run: |
         mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py  # 拡張子を変更（必要な場合）
 
-    # 環境変数の設定と確認
-    - name: Verify secrets and export them
-      run: |
-        if [ -z "${{ secrets.ACCESS_TOKEN }}" ]; then
-          echo "ACCESS_TOKEN is not set"
-          exit 1
-        else
-          echo "ACCESS_TOKEN is properly set"
-        fi
-
-        if [ -z "${{ secrets.USER_ID }}" ]; then
-          echo "USER_ID is not set"
-          exit 1
-        else
-          echo "USER_ID is properly set"
-        fi
-
-        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
-        export USER_ID=${{ secrets.USER_ID }}
-
-    - name: Debug environment variables
+    - name: Setting environment variables
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         USER_ID: ${{ secrets.USER_ID }}
 
       run: |
-        echo "ACCESS_TOKEN length: ${#ACCESS_TOKEN}"
-        echo "USER_ID length: ${#USER_ID}"
-        echo "ACCESS_TOKEN preview: ${ACCESS_TOKEN:0:4}****"
-        echo "USER_ID preview: ${USER_ID:0:4}****"
+        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
+        export USER_ID=${{ secrets.USER_ID }}
   
     # Pythonスクリプトの実行
     - name: Run Python script
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        USER_ID: ${{ secrets.USER_ID }}
     
       run: |
-        echo "ACCESS_TOKEN length: ${#ACCESS_TOKEN}"
-        echo "USER_ID length: ${#USER_ID}"
-        echo "ACCESS_TOKEN preview: ${ACCESS_TOKEN:0:4}****"
-        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
-        export USER_ID=${{ secrets.USER_ID }}
         python scripts/mapleEventNotice.py
