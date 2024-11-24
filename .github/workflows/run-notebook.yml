@@ -35,6 +35,7 @@ jobs:
     - name: Install requests module
       run: |
         pip install requests
+        pip install selenium
         python -m pip install --upgrade pip
 
     - name: Run the script
