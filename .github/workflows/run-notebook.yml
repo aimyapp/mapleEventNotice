@@ -12,45 +12,63 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # リポジトリをチェックアウト
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    # Pythonのセットアップ
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10.12'
+        python-version: '3.10'
 
+    # 必要な依存パッケージをインストール
     - name: Install dependencies
       run: |
-        pip install nbconvert pandas numpy
+        pip install nbconvert pandas numpy requests selenium
+        python -m pip install --upgrade pip
 
+    # スクリプト用の出力ディレクトリを作成
     - name: Create output directory
       run: |
         mkdir -p scripts  # 出力先のディレクトリを作成
 
+    # JupyterノートブックをPythonスクリプトに変換
     - name: Convert notebook to Python script
       run: |
         jupyter nbconvert --to script --output scripts/mapleEventNotice mapleEventNotice.ipynb
 
-    - name: Install requests module
-      run: |
-        pip install requests
-        pip install selenium
-        python -m pip install --upgrade pip
-
-    - name: Run the script
-      run: |
-        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
-        export USER_ID=${{ secrets.USER_ID }}
-  
+    # 生成されたファイルの確認
     - name: List files to check script generation
       run: |
         ls -l scripts  # 出力されたファイルを確認
 
+    # スクリプトの名前変更（必要な場合）
     - name: Rename the converted script (if needed)
       run: |
         mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py  # 拡張子を変更（必要な場合）
 
+    # 環境変数の設定と確認
+    - name: Verify secrets and export them
+      run: |
+        if [ -z "${{ secrets.ACCESS_TOKEN }}" ]; then
+          echo "ACCESS_TOKEN is not set"
+          exit 1
+        else
+          echo "ACCESS_TOKEN is properly set"
+        fi
+
+        if [ -z "${{ secrets.USER_ID }}" ]; then
+          echo "USER_ID is not set"
+          exit 1
+        else
+          echo "USER_ID is properly set"
+        fi
+
+        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
+        export USER_ID=${{ secrets.USER_ID }}
+
+    # Pythonスクリプトの実行
     - name: Run Python script
       run: |
-        python scripts/mapleEventNotice.py  # .py ファイルとして実行
+        python scripts/mapleEventNotice.py
