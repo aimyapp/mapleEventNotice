@@ -68,6 +68,13 @@ jobs:
         export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
         export USER_ID=${{ secrets.USER_ID }}
 
+    - name: Debug environment variables
+      run: |
+        echo "ACCESS_TOKEN length: ${#ACCESS_TOKEN}"
+        echo "USER_ID length: ${#USER_ID}"
+        echo "ACCESS_TOKEN preview: ${ACCESS_TOKEN:0:4}****"
+        echo "USER_ID preview: ${USER_ID:0:4}****"
+  
     # Pythonスクリプトの実行
     - name: Run Python script
       run: |
