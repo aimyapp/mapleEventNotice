@@ -47,18 +47,14 @@ jobs:
     - name: Rename the converted script (if needed)
       run: |
         mv scripts/mapleEventNotice.txt scripts/mapleEventNotice.py  # 拡張子を変更（必要な場合）
-
-    - name: Setting environment variables
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        USER_ID: ${{ secrets.USER_ID }}
-
-      run: |
-        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
-        export USER_ID=${{ secrets.USER_ID }}
   
     # Pythonスクリプトの実行
     - name: Run Python script
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        USER_ID: ${{ secrets.USER_ID }}
     
       run: |
+        export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
+        export USER_ID=${{ secrets.USER_ID }}
         python scripts/mapleEventNotice.py
