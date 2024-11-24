@@ -41,8 +41,7 @@ jobs:
       run: |
         export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
         export USER_ID=${{ secrets.USER_ID }}
-        python scripts/mapleEventNotice.py
-      
+  
     - name: List files to check script generation
       run: |
         ls -l scripts  # 出力されたファイルを確認
