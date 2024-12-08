@@ -2,7 +2,7 @@ name: Run Maple Event Notice
 
 on:
   schedule:
-    - cron: '0 0 * * 5,6' # 金曜日と土曜日
+    - cron: '0 0 * * 3,6' # 水曜日と土曜日
 
 jobs:
   run-notebook:
