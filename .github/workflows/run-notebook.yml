@@ -1,6 +1,9 @@
 name: Run Maple Event Notice
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 0 * * 3,6' # 水曜日と土曜日
 
