@@ -52,7 +52,7 @@ jobs:
         USER_ID: ${{ secrets.USER_ID }}
     
       run: |
-        export ACCESS_TOKEN=${{ secrets.GROUP_ID }}
+        export GROUP_ID=${{ secrets.GROUP_ID }}
         export ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
         export USER_ID=${{ secrets.USER_ID }}
         python scripts/mapleEventNotice.py
